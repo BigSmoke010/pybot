@@ -6,7 +6,7 @@ import os
 
 load_dotenv('.env')
 bot = commands.Bot(command_prefix='p#', intents=discord.Intents.all())
-
+bot.remove_command("help")
 
 @bot.event
 async def on_ready():
