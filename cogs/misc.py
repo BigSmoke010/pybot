@@ -7,7 +7,7 @@ class miscelanous(commands.Cog):
     async def pfp(self, ctx, idd : discord.Member=None):
         if idd == None:
             idd = ctx.author
-        embd = discord.Embed(title=str(idd.name) + '\'s pfp').set_image(url=idd.avatar.url)
+        embd = discord.Embed(title=str(idd.name) + '\'s pfp', color=16777112).set_image(url=idd.avatar.url)
         await ctx.send(embed=embd)
 
     @commands.command(name='say')
@@ -29,7 +29,8 @@ class miscelanous(commands.Cog):
             embed = discord.Embed(title='pybot\'s commands', description='**misc**\n`say`,`pfp`\n**fun**\n`8ball`,`inspire`,`guessing`\n**economy**\n`balance`,`bet`,`register`,`work`\n**NSFW**\n`nsfw`,`boobs`,`gonewild`').set_footer(text='do p#help [command] for more information on that command')
         for x,y,z in cmds:
             if cmd == x:
-                embed = discord.Embed(title=x, description=y).set_footer(text='usage :' + z)
+                embed = discord.Embed(title=x, description=y, color=16777112).set_footer(text='usage: ' + z)
+
         await ctx.send(embed=embed)
 
 

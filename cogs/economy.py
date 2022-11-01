@@ -22,9 +22,7 @@ class economy(commands.Cog):
             tmplist.append(i[1])
         if ctx.author.id in tmplist:
             await ctx.send('you are already registered in the database')
-            print('alr in')
         elif ctx.author.id not in tmplist:
-            print('not in')
             cursor.execute(
                 "INSERT INTO users (username,id,balance) VALUES (:name, :userid, 0)",
                 {
@@ -161,8 +159,9 @@ class economy(commands.Cog):
                     tmplist.append(x[0])
                 if ctx.author.id in tmplist:
                     if datetime.datetime.strptime(allcools[tmplist.index(ctx.author.id)][1], '%Y-%m-%d %H:%M:%S.%f') < datetime.datetime.now():
-                        print(i)
                         cursor.execute('DELETE FROM betcooldowns WHERE memberid =' + str(ctx.author.id))
+                        if amountbet == 'all':
+                            amountbet = i[2]
                         if i[2] >= int(amountbet):
                             prob = random.randrange(0,100)
                             if prob < 50:
@@ -185,7 +184,6 @@ class economy(commands.Cog):
 
                                 await ctx.send('you have won '+ str(amountbet) + 'pc')
                             else:
-                                print(i)
                                 newbal = int(i[2]) - int(amountbet)
                                 cursor.execute('UPDATE users SET balance = :newbal WHERE id = :userid',
                                 {
@@ -211,7 +209,10 @@ class economy(commands.Cog):
                     else:
                         await ctx.send('you are on cooldown')
                 else:
+                    if amountbet == 'all':
+                        amountbet = i[2]
                     if i[2] >= int(amountbet):
+                        prob = random.randrange(0,100)
                         if prob < 50:
                             newbal = int(i[2]) + int(amountbet)
                             cursor.execute('UPDATE users SET balance = :newbal WHERE id = :userid',
@@ -220,7 +221,7 @@ class economy(commands.Cog):
                                 'userid' : i[1]
                             })
                             currenttime = datetime.datetime.now()
-                            nexttime = datetime.timedelta(minutes = 1   ) + currenttime
+                            nexttime = datetime.timedelta(minutes=1) + currenttime
                             cursor.execute('INSERT INTO  betcooldowns VALUES (:userid,:expirationdate)',
                             {
                                 'userid' : ctx.author.id,

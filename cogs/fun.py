@@ -3,6 +3,8 @@ import requests
 import discord
 import json
 from random import choice
+from PIL import Image, ImageDraw, ImageFilter
+
 
 
 class cmds(commands.Cog):
@@ -47,6 +49,32 @@ class cmds(commands.Cog):
 
         await ctx.send('correct, you guessed the number after ' +
                        str(num_of_tries) + ' tries')
+
+    @commands.command(name='gay')
+    async def gay(self, ctx, user : discord.Member):
+        img = requests.get(user.avatar.url)
+        with open('images/tmp.png', 'wb') as imaging:
+            imaging.write(img.content)
+
+        # Front Image
+        filename = 'images/tmp.png'
+
+        # Back Image
+        filename1 = 'images/gay_flag.png'
+
+        # Open Front Image
+        frontImage = Image.open(filename1)
+
+        # Open Background Image
+        background = Image.open(filename)
+
+        frontImage = frontImage.resize([background.height, background.width])
+
+        background.paste(frontImage, (0, 0), frontImage)
+        background.save("images/result.png", format="png")
+        with open('images/result.png', 'rb') as f:
+            picture = discord.File(f)
+            await ctx.send(file=picture)
 
 
 async def setup(bot):
