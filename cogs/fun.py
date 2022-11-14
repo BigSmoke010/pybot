@@ -3,8 +3,8 @@ import requests
 import discord
 import json
 from random import choice
-from PIL import Image, ImageDraw, ImageFilter
-
+from PIL import Image
+import pygame
 
 
 class cmds(commands.Cog):
@@ -75,6 +75,33 @@ class cmds(commands.Cog):
         with open('images/result.png', 'rb') as f:
             picture = discord.File(f)
             await ctx.send(file=picture)
+
+    @commands.command(name='wide')
+    async def wide(self, ctx, user : discord.Member):
+        img = requests.get(user.avatar.url)
+
+        with open('images/tmp.png', 'wb') as imaging:
+            imaging.write(img.content)
+
+        img = Image.open('images/tmp.png')
+        resizedimg = img.resize([img.width + 1000,img.height])
+        resizedimg.save('images/result.png', format='png')
+        with open('images/result.png', 'rb') as f:
+            picture = discord.File(f)
+            await ctx.send(file=picture)
+
+    @commands.command(name='obamium')
+    async def obamium(self, ctx, *, text):
+        pygame.font.init()
+        surface = pygame.image.load('images/obamium.png')
+        font = pygame.font.Font('fonts/Akkurat.ttf', 17)
+        label = font.render(text, False, '#FFFFFF')
+        surface.blit(label, (70,30))
+        pygame.image.save(surface, 'images/resultobamium.png')
+        dcfile = discord.File('images/resultobamium.png')
+        await ctx.send(file=dcfile)
+
+
 
 
 async def setup(bot):
