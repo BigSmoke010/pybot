@@ -5,7 +5,8 @@ import json
 from random import choice
 from PIL import Image
 import pygame
-
+import asyncpraw
+from os import getenv
 
 class cmds(commands.Cog):
 
@@ -94,12 +95,50 @@ class cmds(commands.Cog):
     async def obamium(self, ctx, *, text):
         pygame.font.init()
         surface = pygame.image.load('images/obamium.png')
-        font = pygame.font.Font('fonts/Akkurat.ttf', 17)
+        font = pygame.font.Font('fonts/Akkurat.ttf', 18)
         label = font.render(text, False, '#FFFFFF')
         surface.blit(label, (70,30))
         pygame.image.save(surface, 'images/resultobamium.png')
         dcfile = discord.File('images/resultobamium.png')
         await ctx.send(file=dcfile)
+
+    @commands.command(name='uwuify')
+    async def uwu(self, ctx, *, text):
+        txt = text
+        litsed = []
+        for i in txt:
+            if i in ['l','r']:
+                i = 'w'
+                litsed.append(i)
+            else:
+                i = i
+                litsed.append(i)
+
+        await ctx.send(''.join(litsed))
+    @commands.command(name='meme')
+    async def meme(self, ctx):
+        reddit = asyncpraw.Reddit(client_id=getenv('CLIENTID'),
+                                client_secret=getenv('TOKENSECRET'),
+                                password=getenv('REDDITPASS'),
+                                user_agent="SmokBot",
+                                username="BigSmug101")
+        chosensubs = []
+        sub = await reddit.subreddit('memes')
+        submissions = sub.hot()
+
+        async for i in submissions:
+            if i.url[-4:] == '.jpg' or i.url[-4:] == '.png':
+                chosensubs.append(i)
+        chosensubmission = choice(chosensubs)
+        embed = discord.Embed(title=chosensubmission.title, url=chosensubmission.url).set_image(url=chosensubmission.url).set_author(name=chosensubmission.author)
+        await ctx.send(embed=embed)
+
+    @commands.command(name='roast')
+    async def roast(self, ctx, *, someone:discord.Member =None):
+        with open('JSONS/roasts.json', encoding='utf-8') as inf:
+            cmds= json.load(inf)
+        chosenroast = choice(cmds)
+        await ctx.send(chosenroast['roast'])
 
 
 

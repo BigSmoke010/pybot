@@ -20,17 +20,6 @@ async def on_ready():
     print('loaded modules')
     print("Bot is running!")
 
-
-@bot.command(name='helpp')
-async def helpq(ctx):
-    embed = discord.Embed(
-        title='Help',
-        color=7640463,
-        description=
-        '**help**\n `` `ok` `kala` \n **tiri** \n `ok` __tiri__ #lka _ok_ ')
-    await ctx.send(embed=embed)
-
-
 @bot.command(name='reloadmodules')
 async def relod(ctx):
     for filename in os.listdir("./cogs"):

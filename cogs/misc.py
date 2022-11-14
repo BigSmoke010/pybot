@@ -1,5 +1,7 @@
 from discord.ext import commands
 import discord
+import json
+
 class miscelanous(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -20,7 +22,7 @@ class miscelanous(commands.Cog):
 
     @commands.command(name='help')
     async def help(self, ctx, *, cmd=None):
-        cmds = [('pfp', 'return someones profile picture', 'p#pfp [user]'), ('say', 'make the bot say something', 'p#say [text]'), ('8ball', 'let the bot decide your fate', '8ball [text]'), ('inspire', 'gets a random quote that may inspire you', 'p#inspire'), ('guessing', 'number guessing game', 'p#guessing'), ('balance', 'return the balance of an user', 'p#balance [user]'), ('bet', 'lose or win an amount of money', 'p#bet [amount]'), ('work', 'gain an amount of monney', 'p#work'), ('serverinfo', 'returns some info about the server')]
+        cmds = [('pfp', 'return someones profile picture', 'p#pfp [user]'), ('say', 'make the bot say something', 'p#say [text]'), ('8ball', 'let the bot decide your fate', '8ball [text]'), ('inspire', 'gets a random quote that may inspire you', 'p#inspire'), ('guessing', 'number guessing game', 'p#guessing'), ('balance', 'return the balance of an user', 'p#balance [user]'), ('bet', 'lose or win an amount of money', 'p#bet [amount]'), ('work', 'gain an amount of monney', 'p#work'), ('serverinfo', 'returns some info about the server'), ('uwuify', 'uwuify the given text', 'p#uwuify [text]')]
         if not ctx.channel.nsfw:
             embed = discord.Embed(title='pybot\'s commands', description='**moderation**\n`ban`,`mute`,`kick`,`unban`\n**misc**\n`say`,`pfp`\n**fun**\n`8ball`,`inspire`,`guessing`\n**economy**\n`balance`,`bet`,`register`,`work`').set_footer(text='do p#help [command] for more information on that command')
         else:
