@@ -1,3 +1,25 @@
 [
- {}
+    {"category":"fun", "name":"`8ball`", "description":"let the bot decide your fate", "usage":"p#8ball {text}"},
+    {"category":"fun", "name":"`gay`", "description":"gay someone", "usage":"p#gay {someone}"},
+    {"category":"fun", "name":"`guessing`", "description":"a number guessing game", "usage":"p#guessing}"},
+    {"category":"fun", "name":"`inspire`", "description":"generate a random quote", "usage":"p#inspire"},
+    {"category":"fun", "name":"`meme`", "description":"send a funny meme LOLo", "usage":"p#meme"},
+    {"category":"fun", "name":"`obamium`", "description":"tweet as obamium", "usage":"p#obamium {text}"},
+    {"category":"fun", "name":"`roast`", "description":"roast someone", "usage":"p#roast {someone}"},
+    {"category":"fun", "name":"`uwuify`", "description":"uwuify youw text", "usage":"p#uwuify {text}"},
+    {"category":"fun", "name":"`wide`", "description":"make someone W I D E", "usage":"p#wide {someone}"},
+    {"category":"economy", "name":"`balance`", "description":"show your current balance or someone else's", "usage":"p#balance [someone]"},
+    {"category":"economy", "name":"`bet`", "description":"bet an amount of money", "usage":"p#bet {amount}"},
+    {"category":"economy", "name":"`register`", "description":"register into economy database", "usage":"p#register "},
+    {"category":"economy", "name":"`work`", "description":"work and get rewarded for your hard work", "usage":"p#work"},
+    {"category":"misc","name":"`pfp`", "description":"show someones pfp", "usage":"p#pfp [someone]"},
+    {"category":"misc","name":"`say`", "description":"make the bot say something", "usage":"p#say {text}"},
+    {"category":"misc","name":"`serverinfo`", "description":"show useful information about the server", "usage":"p#serverinfo"},
+    {"category":"misc","name":"`userinfo`", "description":"show useful infromation about someon", "usage":"p#userinfo {someone}"},
+    {"category":"moderation","name":"`ban`", "description":"ban someone", "usage":"p#ban {someone}"},
+    {"category":"moderation","name":"`kick`", "description":"kick someone", "usage":"p#kick {someone}"},
+    {"category":"moderation","name":"`mute`", "description":"mute someone", "usage":"p#mute {someone}"},
+    {"category":"nsfw","name":"`boobs`", "description":"show some boobs", "usage":"p#boobs"},
+    {"category":"nsfw","name":"`nsfw`", "description":"sends an random image from the nsfw subreddit", "usage":"p#nsfw"},
+    {"category":"nsfw","name":"`gonewild`", "description":"sends an random image from the gonewild subreddit", "usage":"p#gonewild"}
 ]

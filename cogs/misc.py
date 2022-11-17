@@ -21,17 +21,20 @@ class miscelanous(commands.Cog):
             await ctx.send(text)
 
     @commands.command(name='help')
-    async def help(self, ctx, *, cmd=None):
-        cmds = [('pfp', 'return someones profile picture', 'p#pfp [user]'), ('say', 'make the bot say something', 'p#say [text]'), ('8ball', 'let the bot decide your fate', '8ball [text]'), ('inspire', 'gets a random quote that may inspire you', 'p#inspire'), ('guessing', 'number guessing game', 'p#guessing'), ('balance', 'return the balance of an user', 'p#balance [user]'), ('bet', 'lose or win an amount of money', 'p#bet [amount]'), ('work', 'gain an amount of monney', 'p#work'), ('serverinfo', 'returns some info about the server'), ('uwuify', 'uwuify the given text', 'p#uwuify [text]')]
-        if not ctx.channel.nsfw:
-            embed = discord.Embed(title='pybot\'s commands', description='**moderation**\n`ban`,`mute`,`kick`,`unban`\n**misc**\n`say`,`pfp`\n**fun**\n`8ball`,`inspire`,`guessing`\n**economy**\n`balance`,`bet`,`register`,`work`').set_footer(text='do p#help [command] for more information on that command')
-        else:
-            embed = discord.Embed(title='pybot\'s commands', description='**moderation**\n`ban`,`mute`,`kick`,`unban`\n**misc**\n`say`,`pfp`\n**fun**\n`8ball`,`inspire`,`guessing`\n**economy**\n`balance`,`bet`,`register`,`work`\n**NSFW**\n`nsfw`,`boobs`,`gonewild`').set_footer(text='do p#help [command] for more information on that command')
-        for x,y,z in cmds:
-            if cmd == x:
-                embed = discord.Embed(title=x, description=y, color=16777112).set_footer(text='usage: ' + z)
+    async def helpcmd(self, ctx, *, cmd=None):
+        with open ('JSONS/help.json', encoding='utf-8') as f:
+            commands = json.load(f)
+        allcmds = [('economy',),('fun',),('nsfw',),('misc',),('moderation',)]
+        for i in commands:
+            for ind, x in enumerate(allcmds):
+                if x[0] == i['category']:
+                    y = x + (i['name'],)
+                    allcmds.remove(allcmds[ind])
+                    allcmds.insert(ind, y)
 
+        embed = discord.Embed(title='pybots help',description='**'+allcmds[0][0]+'**\n'+','.join(allcmds[0][1:]) +'\n**'+allcmds[1][0]+'**\n' +','.join(allcmds[1][1:])+ '\n**'+allcmds[2][0]+'**\n' +','.join(allcmds[2][1:])+'\n**'+allcmds[3][0]+'**\n' +','.join(allcmds[3][1:]) + '\n**'+allcmds[4][0]+'**\n' +','.join(allcmds[4][1:]))
         await ctx.send(embed=embed)
+
 
     @commands.command(name='serverinfo')
     async def info(self, ctx):

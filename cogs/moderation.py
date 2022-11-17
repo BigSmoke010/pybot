@@ -13,14 +13,6 @@ class moderate(commands.Cog):
         else:
             await user.ban(reason=reason)
             await ctx.send(user.name + ' has been banned')
-    @commands.command(name='unban')
-    @commands.has_permissions(ban_members=True, kick_members=True)
-    async def unban(self, ctx, user:discord.Member = None, reason: str = None):
-        if user == None:
-            await ctx.send('you need to mention a user')
-        else:
-            await user.unban()
-            await ctx.send(user.name + ' has been unbanned')
     @commands.command(name='kick')
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, user:discord.Member = None, reason: str = None):

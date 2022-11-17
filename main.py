@@ -6,7 +6,7 @@ import os
 
 load_dotenv('.env')
 bot = commands.Bot(command_prefix='p#', intents=discord.Intents.all())
-bot.remove_command("help")
+bot.remove_command('help')
 
 @bot.event
 async def on_ready():
@@ -20,7 +20,7 @@ async def on_ready():
     print('loaded modules')
     print("Bot is running!")
 
-@bot.command(name='reloadmodules')
+@bot.command(name='reloadcogs')
 async def relod(ctx):
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
