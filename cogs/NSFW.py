@@ -70,14 +70,17 @@ class nsfw(commands.Cog):
 
     @commands.command(name='danbooru')
     @commands.is_nsfw()
-    async def dan(self, ctx, topic:str=None):
-        if topic == None:
-            rqst = requests.get("https://danbooru.donmai.us/posts.json?limit=100").text
-        else:
-
-            rqst = requests.get("https://danbooru.donmai.us/posts.json?limit=100&post[tag_string]=" + topic).text
+    async def dan(self, ctx):
+        rqst = requests.get("https://danbooru.donmai.us/posts.json?limit=200&page=" + str(choice(range(0, 1000)))).text
         jsn = json.loads(rqst)
-        chosenurl = jsn[choice(range(0,100))]
+        chosenurl = jsn[choice(range(0,len(jsn)))]
+        if chosenurl['rating'] != 'e' or chosenurl['rating'] != 's' or chosenurl['rating'] != 'q':
+            while chosenurl['rating'] != 'e' or chosenurl['rating'] != 's' or chosenurl['rating'] != 'q':
+                rqst = requests.get("https://danbooru.donmai.us/posts.json?limit=200&page=" + str(choice(range(0, 1000)))).text
+                jsn = json.loads(rqst)
+                chosenurl = jsn[choice(range(0,len(jsn)))]
+                if chosenurl['rating'] == 'e' or chosenurl['rating'] == 's' or chosenurl['rating'] == 'q':
+                    break
         embd = discord.Embed().set_image(url=chosenurl["file_url"])
         await ctx.send(embed=embd)
 
