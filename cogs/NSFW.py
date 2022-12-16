@@ -10,17 +10,17 @@ class nsfw(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.reddit = asyncpraw.Reddit(client_id=getenv('CLIENTID'),
+                                client_secret=getenv('TOKENSECRET'),
+                                password=getenv('REDDITPASS'),
+                                user_agent="SmokBot",
+                                username="BigSmug101")
 
     @commands.command(name='nsfw')
     @commands.is_nsfw()
     async def notsafeforwork(self, ctx):
-        reddit = asyncpraw.Reddit(client_id=getenv('CLIENTID'),
-                                    client_secret=getenv('TOKENSECRET'),
-                                    password=getenv('REDDITPASS'),
-                                    user_agent="SmokBot",
-                                    username="BigSmug101")
         chosensubs = []
-        sub = await reddit.subreddit('nsfw')
+        sub = await self.reddit.subreddit('nsfw')
         submissions = sub.hot()
 
         async for i in submissions:
@@ -33,13 +33,8 @@ class nsfw(commands.Cog):
     @commands.command(name='boobs')
     @commands.is_nsfw()
     async def boob(self, ctx):
-        reddit = asyncpraw.Reddit(client_id=getenv('CLIENTID'),
-                                    client_secret=getenv('TOKENSECRET'),
-                                    password=getenv('REDDITPASS'),
-                                    user_agent="SmokBot",
-                                    username="BigSmug101")
         chosensubs = []
-        sub = await reddit.subreddit('boobs')
+        sub = await self.reddit.subreddit('boobs')
         submissions = sub.hot()
 
         async for i in submissions:
@@ -52,13 +47,8 @@ class nsfw(commands.Cog):
     @commands.command(name='gonewild')
     @commands.is_nsfw()
     async def goinwild(self, ctx):
-        reddit = asyncpraw.Reddit(client_id=getenv('CLIENTID'),
-                                    client_secret=getenv('TOKENSECRET'),
-                                    password=getenv('REDDITPASS'),
-                                    user_agent="SmokBot",
-                                    username="BigSmug101")
         chosensubs = []
-        sub = await reddit.subreddit('gonewild')
+        sub = await self.reddit.subreddit('gonewild')
         submissions = sub.hot()
 
         async for i in submissions:
@@ -74,12 +64,12 @@ class nsfw(commands.Cog):
         rqst = requests.get("https://danbooru.donmai.us/posts.json?limit=200&page=" + str(choice(range(0, 1000)))).text
         jsn = json.loads(rqst)
         chosenurl = jsn[choice(range(0,len(jsn)))]
-        if chosenurl['rating'] != 'e' or chosenurl['rating'] != 's' or chosenurl['rating'] != 'q':
-            while chosenurl['rating'] != 'e' or chosenurl['rating'] != 's' or chosenurl['rating'] != 'q':
+        if chosenurl['rating'] != 'e':
+            while chosenurl['rating'] != 'e':
                 rqst = requests.get("https://danbooru.donmai.us/posts.json?limit=200&page=" + str(choice(range(0, 1000)))).text
                 jsn = json.loads(rqst)
                 chosenurl = jsn[choice(range(0,len(jsn)))]
-                if chosenurl['rating'] == 'e' or chosenurl['rating'] == 's' or chosenurl['rating'] == 'q':
+                if chosenurl['rating'] == 'e':
                     break
         embd = discord.Embed().set_image(url=chosenurl["file_url"])
         await ctx.send(embed=embd)

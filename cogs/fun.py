@@ -12,6 +12,11 @@ class cmds(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.reddit = asyncpraw.Reddit(client_id=getenv('CLIENTID'),
+                                client_secret=getenv('TOKENSECRET'),
+                                password=getenv('REDDITPASS'),
+                                user_agent="SmokBot",
+                                username="BigSmug101")
 
     @commands.command(name='8ball')
     async def ball(self, ctx):
@@ -117,13 +122,9 @@ class cmds(commands.Cog):
         await ctx.send(''.join(litsed))
     @commands.command(name='meme')
     async def meme(self, ctx):
-        reddit = asyncpraw.Reddit(client_id=getenv('CLIENTID'),
-                                client_secret=getenv('TOKENSECRET'),
-                                password=getenv('REDDITPASS'),
-                                user_agent="SmokBot",
-                                username="BigSmug101")
+
         chosensubs = []
-        sub = await reddit.subreddit('memes')
+        sub = await self.reddit.subreddit('memes')
         submissions = sub.hot()
 
         async for i in submissions:

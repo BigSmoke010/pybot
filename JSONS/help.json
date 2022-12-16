@@ -22,5 +22,5 @@
     {"category":"nsfw","name":"`boobs`", "description":"show some boobs", "usage":"p#boobs"},
     {"category":"nsfw","name":"`nsfw`", "description":"sends an random image from the nsfw subreddit", "usage":"p#nsfw"},
     {"category":"nsfw","name":"`gonewild`", "description":"sends an random image from the gonewild subreddit", "usage":"p#gonewild"},
-    {"category":"nsfw", "name":"`danbooru`", "description":"sends a random image from the given topic otherwise random", "usage":"p#danbooru [topic]"}
+    {"category":"nsfw", "name":"`danbooru`", "description":"sends a random explicit image from danbooru", "usage":"p#danbooru"}
 ]
