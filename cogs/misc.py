@@ -9,7 +9,7 @@ class miscelanous(commands.Cog):
     async def pfp(self, ctx, idd : discord.Member=None):
         if idd == None:
             idd = ctx.author
-        embd = discord.Embed(title=str(idd.name) + '\'s pfp', color=16777112).set_image(url=idd.avatar.url)
+        embd = discord.Embed(title='**'+str(idd.name) +'**\'s pfp', color=16777112).set_image(url=idd.avatar.url)
         await ctx.send(embed=embd)
 
     @commands.command(name='say')

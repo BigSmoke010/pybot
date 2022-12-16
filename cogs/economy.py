@@ -60,7 +60,7 @@ class economy(commands.Cog):
         cursor = db.cursor()
         cursor.execute("SELECT * FROM users")
         valid = cursor.fetchall()
-        listofworks = ['you have killed hitler and won ', 'some random rich nigga saw you at the street and gave you ', 'you convinced stam to sell you his gpu and got ', 'you have joined filippas and stam in robbing a fucking bank and got ', 'you became a prostitute and gained ', 'super thought you were yasmin and gave you ', 'you worked for andrew tate for 30 minutes and he generousely gave you ', 'you started a gofundme and got ']
+        listofworks = ['you have killed hitler and won ', 'some random rich nigga saw you at the street and gave you ', 'you convinced stam to sell you his gpu and got ', 'you have joined filippas and stam in robbing a fucking bank and got ', 'you became a prostitute and gained ', 'super thought you were yasmin and gave you ', 'you worked for andrew tate for 30 minutes and he generousely gave you ', 'you started an onlyfans and got ', 'you sued fortnite and got ']
         for i in valid:
             if i[1] == ctx.author.id:
                 currenttime = datetime.datetime.now()
@@ -106,9 +106,9 @@ class economy(commands.Cog):
                         seconds = diftime.seconds
                         minutes = (seconds//60) % 60
                         if minutes == 0:
-                            await ctx.send('you are on cooldown,' + str(seconds) + ' seconds left')
+                            await ctx.send('you are on cooldown, **' + str(seconds) + ' Seconds** left')
                         else:
-                            await ctx.send('you are on cooldown, ' + str(minutes)  + ' minutes left')
+                            await ctx.send('you are on cooldown, **' + str(minutes)  + ' Minutes** left')
 
                         cursor.close()
                         db.close()
@@ -182,7 +182,7 @@ class economy(commands.Cog):
                                 cursor.close()
                                 db.close()
 
-                                await ctx.send('you have won '+ str(amountbet) + 'pc')
+                                await ctx.send('you have won **'+ str(amountbet) + 'pc**')
                             else:
                                 newbal = int(i[2]) - int(amountbet)
                                 cursor.execute('UPDATE users SET balance = :newbal WHERE id = :userid',
@@ -201,7 +201,7 @@ class economy(commands.Cog):
                                 cursor.close()
                                 db.close()
 
-                                await ctx.send('you have lost '+ str(amountbet) + 'pc')
+                                await ctx.send('you have lost **'+ str(amountbet) + 'pc**')
                         else:
                             await ctx.send('you betted more money than you have!')
                             cursor.close()
@@ -231,7 +231,7 @@ class economy(commands.Cog):
                             cursor.close()
                             db.close()
 
-                            await ctx.send('you have won '+ str(amountbet) + 'pc')
+                            await ctx.send('you have won **'+ str(amountbet) + 'pc**')
                         else:
                             print(i)
                             newbal = int(i[2]) - int(amountbet)
@@ -251,7 +251,7 @@ class economy(commands.Cog):
                             cursor.close()
                             db.close()
 
-                            await ctx.send('you have lost '+ str(amountbet) + 'pc')
+                            await ctx.send('you have lost **'+ str(amountbet) + 'pc**')
                     else:
                         await ctx.send('you betted more money than you have!')
                         cursor.close()
