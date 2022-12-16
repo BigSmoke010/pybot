@@ -10,7 +10,6 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-
     game = discord.Game("with filippas juicy fat big penis.")
     await bot.change_presence(activity=game)
     for filename in os.listdir("./cogs"):

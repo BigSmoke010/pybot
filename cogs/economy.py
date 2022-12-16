@@ -44,7 +44,6 @@ class economy(commands.Cog):
         valid = cursor.fetchall()
         for i in valid:
             if i[1] == user.id:
-
                 embed = discord.Embed(color=7377330,
                                     title=user.name + '\'s balance',
                                     description='**Balance**\n`' +
@@ -256,6 +255,26 @@ class economy(commands.Cog):
                         await ctx.send('you betted more money than you have!')
                         cursor.close()
                         db.close()
+    @commands.command(name='give')
+    async def givemoney(self, ctx, user : discord.Member = None, amount: int=0):
+        if ctx.author.guild_permissions.administrator:
+            if user == None:
+                user = ctx.author
+            db = sql.connect('economydb.db')
+            cursor = db.cursor()
+            cursor.execute('SELECT oid,* FROM users')
+            valid = cursor.fetchall()
+            print(valid)
+            for i in valid:
+                if i[2] == user.id:
+                    newamount = int(i[3]) + amount
+                    cursor.execute('UPDATE users SET balance ='+str(newamount)+' WHERE oid =' +str(i[0]))
+                    await ctx.send('Gave **' + user.name + '** **' + str(amount) + '**pc')
+            db.commit()
+            cursor.close()
+            db.close()
+
+
 
 async def setup(bot):
     await bot.add_cog(economy(bot))
