@@ -1,6 +1,6 @@
-# soon
 import discord
 from discord.ext import commands
+from time import sleep
 
 class moderate(commands.Cog):
     def __init__(self, bot):
@@ -30,6 +30,11 @@ class moderate(commands.Cog):
             role = discord.utils.get(user.guild.roles, name='muted')
             await user.add_roles(role)
             await ctx.send('**'+user.name + '** has been muted')
+    @commands.command(name='purge')
+    @commands.has_permissions(ban_members=True, kick_members=True)
+    async def purge(self, ctx, amount: int):
+        await ctx.channel.purge(limit=int(amount))
+        await ctx.send('deleted **' + str(amount) + '** messages!')
 
 
 

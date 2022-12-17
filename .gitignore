@@ -2,4 +2,6 @@
 __pycache__/
 test.py
 economydb.db
-images/
+images/result.png
+images/resultobamium.png
+images/tmp.png

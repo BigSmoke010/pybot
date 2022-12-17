@@ -19,12 +19,10 @@ class cmds(commands.Cog):
                                 username="BigSmug101")
 
     @commands.command(name='8ball')
-    async def ball(self, ctx):
-        req = requests.get('https://8ball.delegator.com/magic/JSON/' +
-                           ctx.message.content[8:]).text
-        jsonresp = json.loads(req)
-        embed = discord.Embed(title=ctx.message.content[8:],
-                              description=jsonresp["magic"]["answer"])
+    async def ball(self, ctx, *, question):
+        response = requests.get("https://eightballapi.com/api?question=" + question + "&lucky=false").text
+        respjson = json.loads(response)
+        embed = discord.Embed(title=question, description=respjson['reading'])
         await ctx.send(embed=embed)
 
     @commands.command(name='inspire')
@@ -40,7 +38,6 @@ class cmds(commands.Cog):
         await ctx.send('guess the number')
         num = choice(range(x, y))
         num_of_tries = 0
-        print(num)
         msg = await self.bot.wait_for('message')
 
         while int(msg.content) != num:
@@ -100,7 +97,7 @@ class cmds(commands.Cog):
     async def obamium(self, ctx, *, text):
         pygame.font.init()
         surface = pygame.image.load('images/obamium.png')
-        font = pygame.font.Font('fonts/Akkurat.ttf', 18)
+        font = pygame.font.Font('fonts/Akkurat.ttf', 22)
         label = font.render(text, False, '#FFFFFF')
         surface.blit(label, (70,30))
         pygame.image.save(surface, 'images/resultobamium.png')

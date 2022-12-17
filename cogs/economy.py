@@ -76,16 +76,16 @@ class economy(commands.Cog):
                         probablity = random.randrange(0, 100)
                         if probablity < 1:
                             amount = random.choice(range(10000, 100000))
-                            await ctx.send(random.choice(listofworks) + str(amount))
+                            await ctx.send(random.choice(listofworks) + '**'+str(amount) + 'pc**')
                         if probablity < 30 and not probablity<1:
                             amount = random.choice(range(1000, 2000))
-                            await ctx.send(random.choice(listofworks) + str(amount))
+                            await ctx.send(random.choice(listofworks) + '**'+str(amount) + 'pc**')
                         if probablity < 60 and not probablity< 30 and not probablity<1:
                             amount = random.choice(range(551, 900))
-                            await ctx.send(random.choice(listofworks) + str(amount))
+                            await ctx.send(random.choice(listofworks) + '**'+str(amount) + 'pc**')
                         if probablity < 100 and not probablity < 60 and not probablity< 30 and not probablity<1:
                             amount = random.choice(range(200, 550))
-                            await ctx.send(random.choice(listofworks) + str(amount))
+                            await ctx.send(random.choice(listofworks) + '**'+str(amount) + 'pc**')
                         cursor.execute('SELECT * FROM users WHERE id ='  + str(ctx.author.id))
                         selecteduser = cursor.fetchone()
                         total = selecteduser[2] + amount
@@ -270,11 +270,12 @@ class economy(commands.Cog):
                     newamount = int(i[3]) + amount
                     cursor.execute('UPDATE users SET balance ='+str(newamount)+' WHERE oid =' +str(i[0]))
                     await ctx.send('Gave **' + user.name + '** **' + str(amount) + '**pc')
+                if i[2] == ctx.author.id:
+                    newamount = int(i[3]) - amount
+                    cursor.execute('UPDATE users SET balance ='+str(newamount)+' WHERE oid =' +str(i[0]))
             db.commit()
             cursor.close()
             db.close()
-
-
 
 async def setup(bot):
     await bot.add_cog(economy(bot))
