@@ -55,12 +55,8 @@ class cmds(commands.Cog):
 
     @commands.command(name='gay')
     async def gay(self, ctx, user : discord.Member):
-        img = requests.get(user.avatar.url)
-        with open('images/tmp.png', 'wb') as imaging:
-            imaging.write(img.content)
+        filename = Image.open(requests.get(user.avatar.url, stream=True).raw)
 
-        # Front Image
-        filename = 'images/tmp.png'
 
         # Back Image
         filename1 = 'images/gay_flag.png'
@@ -69,7 +65,7 @@ class cmds(commands.Cog):
         frontImage = Image.open(filename1)
 
         # Open Background Image
-        background = Image.open(filename)
+        background = filename
 
         frontImage = frontImage.resize([background.height, background.width])
 

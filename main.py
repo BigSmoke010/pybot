@@ -30,7 +30,9 @@ async def relod(ctx):
             await bot.load_extension(f"cogs.{filename[:-3]}")
 
     await ctx.send('cogs reloaded succesfully')
-
+@bot.command(name='ping')
+async def lat(ctx):
+    await ctx.send(bot.latency)
 
 if __name__ == "__main__":
     bot.run(getenv('TOKEN'))

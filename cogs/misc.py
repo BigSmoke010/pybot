@@ -24,16 +24,27 @@ class miscelanous(commands.Cog):
     async def helpcmd(self, ctx, *, cmd=None):
         with open ('JSONS/help.json', encoding='utf-8') as f:
             commands = json.load(f)
-        allcmds = [('economy',),('fun',),('nsfw',),('misc',),('moderation',)]
-        for i in commands:
-            for ind, x in enumerate(allcmds):
-                if x[0] == i['category']:
-                    y = x + (i['name'],)
-                    allcmds.remove(allcmds[ind])
-                    allcmds.insert(ind, y)
-
-        embed = discord.Embed(title='pybots help',description='**'+allcmds[0][0]+'**\n'+','.join(allcmds[0][1:]) +'\n**'+allcmds[1][0]+'**\n' +','.join(allcmds[1][1:])+ '\n**'+allcmds[2][0]+'**\n' +','.join(allcmds[2][1:])+'\n**'+allcmds[3][0]+'**\n' +','.join(allcmds[3][1:]) + '\n**'+allcmds[4][0]+'**\n' +','.join(allcmds[4][1:]))
-        await ctx.send(embed=embed)
+        if cmd == None:
+            if ctx.channel.is_nsfw():
+                allcmds = [('economy',),('fun',),('nsfw',),('misc',),('moderation',)]
+            else:
+                allcmds = [('economy',),('fun',),('misc',),('moderation',)]
+            for i in commands:
+                for ind, x in enumerate(allcmds):
+                    if x[0] == i['category']:
+                        y = x + (i['name'],)
+                        allcmds.remove(allcmds[ind])
+                        allcmds.insert(ind, y)
+            if ctx.channel.is_nsfw():
+                embed = discord.Embed(title='pybots help',color=16777112,description='**'+allcmds[0][0]+'**\n'+','.join(allcmds[0][1:]) +'\n**'+allcmds[1][0]+'**\n' +','.join(allcmds[1][1:])+ '\n**'+allcmds[2][0]+'**\n' +','.join(allcmds[2][1:])+'\n**'+allcmds[3][0]+'**\n' +','.join(allcmds[3][1:]) + '\n**'+allcmds[4][0]+'**\n' +','.join(allcmds[4][1:]))
+            else:
+                embed = discord.Embed(title='pybots help',color=16777112,description='**'+allcmds[0][0]+'**\n'+','.join(allcmds[0][1:]) +'\n**'+allcmds[1][0]+'**\n' +','.join(allcmds[1][1:])+ '\n**'+allcmds[2][0]+'**\n' +','.join(allcmds[2][1:]) + '\n**'+allcmds[3][0]+'**\n' +','.join(allcmds[3][1:]))
+            await ctx.send(embed=embed)
+        else:
+            for i in commands:
+                if i['name'] == '`'+ cmd + '`':
+                    embed = discord.Embed(title=cmd, color=16777112, description=i['description']).set_footer(text=i['usage'])
+                    await ctx.send(embed=embed)
 
 
     @commands.command(name='serverinfo')
